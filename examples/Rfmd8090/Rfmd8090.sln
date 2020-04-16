@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rfmd8090", "Rfmd8090.csproj", "{38A1EB15-18AE-4BA1-A044-F6350E444ADD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MipiRffe", "..\..\rffe\MipiRffe.csproj", "{9737CE47-803D-4314-8064-47D9C3B8E60C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rffe", "..\..\rffe\Rffe.csproj", "{9737CE47-803D-4314-8064-47D9C3B8E60C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

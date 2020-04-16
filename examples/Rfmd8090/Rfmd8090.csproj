@@ -49,13 +49,13 @@
     <Compile Include="Rfmd8090.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\rffe\MipiRffe.csproj">
-      <Project>{9737ce47-803d-4314-8064-47d9c3b8e60c}</Project>
-      <Name>MipiRffe</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\..\rffe\Rffe.csproj">
+      <Project>{9737ce47-803d-4314-8064-47d9c3b8e60c}</Project>
+      <Name>Rffe</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
