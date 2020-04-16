@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rfmd8090", "Rfmd8090.csproj", "{38A1EB15-18AE-4BA1-A044-F6350E444ADD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MipiRffe", "..\..\rffe\MipiRffe.csproj", "{9737CE47-803D-4314-8064-47D9C3B8E60C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38A1EB15-18AE-4BA1-A044-F6350E444ADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38A1EB15-18AE-4BA1-A044-F6350E444ADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38A1EB15-18AE-4BA1-A044-F6350E444ADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38A1EB15-18AE-4BA1-A044-F6350E444ADD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9737CE47-803D-4314-8064-47D9C3B8E60C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9737CE47-803D-4314-8064-47D9C3B8E60C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9737CE47-803D-4314-8064-47D9C3B8E60C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9737CE47-803D-4314-8064-47D9C3B8E60C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DB9E1CFA-233B-4784-8460-6F1A90AD7C89}
+	EndGlobalSection
+EndGlobal
