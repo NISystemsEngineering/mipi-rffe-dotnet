@@ -75,13 +75,13 @@ namespace NationalInstruments.ApplicationsEngineering.Mipi
 
         public void ExtendedRegisterWrite(byte slaveAddress, ushort registerAddress, byte[] registerData)
         {
-            RffeCommand command = new RffeRegWriteExtCommand(slaveAddress, registerAddress, registerData);
+            RffeCommand command = new RffeExtendedRegisterWriteCommand(slaveAddress, registerAddress, registerData);
             command.Burst(session, busNumber);
         }
 
         public byte[] ExtendedRegisterRead(byte slaveAddress, ushort registerAddress, int byteCount)
         {
-            RffeExtendedCommand command = new RffeRegReadExtCommand(slaveAddress, registerAddress, byteCount);
+            RffeExtendedCommand command = new RffeExtendedRegisterReadCommand(slaveAddress, registerAddress, byteCount);
             command.Burst(session, busNumber);
             return command.RegisterData;
         }
@@ -202,7 +202,11 @@ namespace NationalInstruments.ApplicationsEngineering.Mipi
     {
         public override int RegisterAddressFieldWidth => 8;
         public override int CommandFieldWidth => 4;
-        public byte[] RegisterData { get; protected set; }
+        protected byte[] _registerData;
+        public byte[] RegisterData
+        {
+            get { return (byte[])_registerData.Clone(); }
+        }
         public virtual int ByteCount {
             get { throw new RffeRequiredOverrideException(this, typeof(RffeExtendedCommand).GetProperty("ByteCount")); }
         }
@@ -218,7 +222,7 @@ namespace NationalInstruments.ApplicationsEngineering.Mipi
         public RffeExtendedCommand(byte slaveAddress, ushort registerAddress, byte[] registerData, string alias = "") :
             base(slaveAddress, registerAddress, alias)
         {
-            RegisterData = registerData;
+            _registerData = (byte[])registerData.Clone();
         }
 
         protected override void DataCheck()
@@ -259,14 +263,14 @@ namespace NationalInstruments.ApplicationsEngineering.Mipi
         }
     }
 
-    public class RffeRegWriteExtCommand : RffeExtendedCommand
+    public class RffeExtendedRegisterWriteCommand : RffeExtendedCommand
     {
         public override string Name => "RegWriteExt";
         public override byte Command => 0b0000;
         public override int ByteCount => RegisterData.Length;
 
-        public RffeRegWriteExtCommand(byte slaveAddress, ushort registerAddress, byte[] registerData, string alias = "") :
-            base(slaveAddress, registerAddress, registerData, alias) { }
+        public RffeExtendedRegisterWriteCommand(byte slaveAddress, ushort registerAddress, byte[] writeData, string alias = "") :
+            base(slaveAddress, registerAddress, writeData, alias) { }
 
         protected override byte[] BuildDataFrame()
         {
@@ -282,14 +286,14 @@ namespace NationalInstruments.ApplicationsEngineering.Mipi
         }
     }
 
-    public class RffeRegReadExtCommand : RffeExtendedCommand
+    public class RffeExtendedRegisterReadCommand : RffeExtendedCommand
     {
         public override string Name => "RegReadExt";
         public override byte Command => 0b0010;
         private readonly int _byteCount;
         public override int ByteCount => _byteCount;
 
-        public RffeRegReadExtCommand(byte slaveAddress, ushort registerAddress, int byteCount, string alias=""):
+        public RffeExtendedRegisterReadCommand(byte slaveAddress, ushort registerAddress, int byteCount, string alias=""):
             base(slaveAddress, registerAddress, new byte[] { }, alias)
         {
             _byteCount = byteCount;
@@ -308,7 +312,7 @@ namespace NationalInstruments.ApplicationsEngineering.Mipi
             string siteList = FormatSiteList(busNumber);
             uint[][] captureData = null;
             captureData = session.CaptureWaveforms.Fetch(siteList, Name, ByteCount, TimeSpan.FromSeconds(timeout), ref captureData);
-            RegisterData = captureData[0].Select(num => { return (byte)num; }).ToArray();
+            _registerData = captureData[0].Select(num => { return (byte)num; }).ToArray();
         }
     }
 }
