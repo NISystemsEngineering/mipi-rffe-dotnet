@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace NationalInstruments.ApplicationsEngineering.Mipi
 {
@@ -84,9 +85,20 @@ namespace NationalInstruments.ApplicationsEngineering.Mipi
             command.Burst(session, busNumber);
             return command.RegisterData;
         }
+
+        public void Burst(RffeCommand command)
+        {
+            command.Burst(session, busNumber);
+        }
+
+        public void Burst(IEnumerable<RffeCommand> commands)
+        {
+            foreach (var command in commands)
+                Burst(command);
+        }
     }
     
-    internal abstract class RffeCommand
+    public abstract class RffeCommand
     {
         public virtual string Name {
             get { throw new RffeRequiredOverrideException(this, typeof(RffeCommand).GetProperty("Name")); }
@@ -186,7 +198,7 @@ namespace NationalInstruments.ApplicationsEngineering.Mipi
         }
     }
 
-    internal abstract class RffeExtendedCommand : RffeCommand
+    public abstract class RffeExtendedCommand : RffeCommand
     {
         public override int RegisterAddressFieldWidth => 8;
         public override int CommandFieldWidth => 4;
@@ -247,7 +259,7 @@ namespace NationalInstruments.ApplicationsEngineering.Mipi
         }
     }
 
-    internal class RffeRegWriteExtCommand : RffeExtendedCommand
+    public class RffeRegWriteExtCommand : RffeExtendedCommand
     {
         public override string Name => "RegWriteExt";
         public override byte Command => 0b0000;
@@ -270,7 +282,7 @@ namespace NationalInstruments.ApplicationsEngineering.Mipi
         }
     }
 
-    internal class RffeRegReadExtCommand : RffeExtendedCommand
+    public class RffeRegReadExtCommand : RffeExtendedCommand
     {
         public override string Name => "RegReadExt";
         public override byte Command => 0b0010;
