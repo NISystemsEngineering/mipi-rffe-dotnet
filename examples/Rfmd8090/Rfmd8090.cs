@@ -4,7 +4,7 @@ namespace Rfmd8090
 {
     public static class Rfmd8090
     {
-        public static readonly ValueTuple<byte, ushort, byte[]>[] Band1Apt = new ValueTuple<byte, ushort, byte[]>[]
+        public static readonly (byte slaveAddress, ushort registerAddress, byte[] writeData)[] Band1Apt = new (byte, ushort, byte[])[]
         {
             (0xC, 0x0A, new byte[] { 0x14 }),
             (0xC, 0x0A, new byte[] { 0x14 }),

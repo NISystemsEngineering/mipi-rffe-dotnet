@@ -26,9 +26,7 @@ namespace Rfmd8090
             Console.WriteLine("Slave | Register | Write | Read");
             foreach(var writeParameters in Rfmd8090.Band1Apt)
             {
-                byte slaveAddress = writeParameters.Item1;
-                ushort registerAddress = writeParameters.Item2;
-                byte[] writeData = writeParameters.Item3;
+                var (slaveAddress, registerAddress, writeData) = writeParameters;
                 byte[] readData = bus0.ExtendedRegisterRead(slaveAddress, registerAddress, writeData.Length);
                 string formattedWriteData = '[' + string.Join(",", writeData.Select(val => { return string.Format("0x{0:X2}", val); })) + ']';
                 string formattedReadData = '[' + string.Join(",", readData.Select(val => { return string.Format("0x{0:X2}", val); })) + ']';
