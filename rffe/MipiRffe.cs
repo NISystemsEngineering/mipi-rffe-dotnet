@@ -109,9 +109,11 @@ namespace NationalInstruments.ApplicationsEngineering.Mipi
         public virtual byte Command { 
             get { throw new RffeRequiredOverrideException(this, typeof(RffeCommand).GetProperty("Command")); }
         }
+
         public virtual int CommandFieldWidth { 
             get { throw new RffeRequiredOverrideException(this, typeof(RffeCommand).GetProperty("CommandFieldWidth")); }
         }
+
         public byte[] CommandBits
         {
             get { return Command.ToBits(CommandFieldWidth); }
@@ -122,11 +124,11 @@ namespace NationalInstruments.ApplicationsEngineering.Mipi
             this.alias = alias;
             this.slaveAddress = slaveAddress;
             this.registerAddress = registerAddress;
+            DataCheck();
         }
 
         public virtual void Burst(NIDigital session, int busNumber, double timeout = 10.0)
         {
-            DataCheck();
             CreateWaveforms(session);
             uint[] sourceWaveform = BuildSourceWaveform();
             WriteSourceWaveform(session, sourceWaveform);
